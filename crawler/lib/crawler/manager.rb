@@ -27,7 +27,7 @@ module Crawler
 
       def crawl uris, max_depth, depth=1
         uris.each do |uri|
-          next if !uri.should_crawl? || seen_uris[uri.to_s] || filters.detect { |f| f.reject?(uri.to_s) }
+          next if !uri.should_crawl? || seen_uris[uri.to_s] || filters.detect { |f| !f.match?(uri.host) }
 
           lock.synchronize do
             seen_uris[uri.to_s] = Time.now.to_i #uri

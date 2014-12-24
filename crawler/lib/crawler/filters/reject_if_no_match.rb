@@ -3,20 +3,20 @@ module Crawler
     class RejectIfNoMatch
 
       def initialize pattern
-        @patterh = pattern
+        @pattern = pattern
       end
 
-      def regex
-        @regex ||= Regexp.new(%Q{#{pattern}})
-      end
-
-      def reject? str
-        !regex.match(str)
+      def match? str
+        !!regex.match(str)
       end
 
       private
 
         attr_reader :pattern
+
+        def regex
+          @regex ||= Regexp.new(pattern)
+        end
 
     end
   end
